@@ -1,41 +1,5 @@
-# taowuDB (梼杌DB)
-
-Self-developed relational database system with MySQL wire protocol compatibility.
-
-## Architecture
-
-```
-config_gui (PyQt GUI)  ←→  taowu (core engine)
-     frontend                  backend (config logic library)
-```
-
-- **Backend `taowu/`**: Storage engine (B+ tree), SQL engine, MySQL protocol, transactions, config manager
-- **Frontend `config_gui/`**: Desktop GUI for configuration management, monitoring, and query editing
-- **Logic separation**: All utilities, logic, and rules are strictly split into backend logic (`taowu/config/`) and frontend logic (`config_gui/utils/`)
-
-## Quick Start
-
-```bash
-# Install
-pip install -e .
-
-# Initialize database
-python scripts/init_db.py
-
-# Start server
-taowudb --port 3307
-
-# Connect with MySQL client
-mysql -h 127.0.0.1 -P 3307 -u root
-
-# Launch GUI
-taowudb-gui
-```
-
-## Features (v0.1)
-
-- Basic SQL engine (CREATE/DROP/INSERT/SELECT/UPDATE/DELETE)
-- Page-based B+ tree storage engine with WAL
-- MySQL wire protocol v10 compatibility
-- Transaction support (ACID with MVCC)
-- PyQt desktop GUI for management and monitoring
+本项目由1.6开始全面放弃b+树，b+树的漏洞和风险过高被我放弃了转而改用，缓冲层加防火墙模式，本项目为前后端一体化数据库，可以装进U盘随身携带。
+本项目由1.6开始更名为“霸下db“，使用方法：
+1、先创建数据库再创建数据库表，当然我设置了专门的选项适配中文编码，后面有标注
+2、连接数据库前请先前往用户管理更改密码，防火墙界面有模式调节，严格模式什么都进不来，宽松模式不拦截不预警，均衡有警告和拦截
+3.本项目兼容先行所有的公开的MySQL协议连接，当然内核处没有MySQL套件，是我用ai辅助开发的，自研后端
